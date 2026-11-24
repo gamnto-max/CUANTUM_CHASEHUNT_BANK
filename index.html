@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFINITYHUNT_CUANTUM_BANK · Banca Mundial y Cuántica T+0</title>
+<style>
+  body { background: #f1f5f9; color: #0f172a; font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; }
+  button, .tab-btn, select, input { transition: all 0.22s ease; }
+  button:hover, .tab-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(212, 175, 55, 0.35); border-color: #d4af37 !important; filter: brightness(1.06); }
+  .tab-btn { border: 1.5px solid #cbd5e1 !important; }
+  .tab-btn.active { background: #002d72 !important; color: #fcd34d !important; border: 1.5px solid #d4af37 !important; box-shadow: 0 4px 12px rgba(0, 45, 114, 0.25); }
+  .gold-card { background: #fff; border: 1.5px solid #d4af37; border-radius: 12px; box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06); }
+  .gold-card:hover { box-shadow: 0 10px 26px rgba(212, 175, 55, 0.25); }
+  input:focus, select:focus { outline: none; border-color: #ff6200 !important; box-shadow: 0 0 0 3px rgba(255, 98, 0, 0.18); }
+  th { border-bottom: 2px solid #d4af37; padding: 8px 6px; } td { border-bottom: 1px solid #e2e8f0; padding: 7px 6px; } tr:hover td { background: #fffbeb; }
+  @keyframes bloombergScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  #bloomberg-tape { background: #0f172a; color: #38bdf8; border-bottom: 2px solid #d4af37; padding: 7px 0; font-family: monospace; font-size: 0.82rem; font-weight: 800; overflow: hidden; white-space: nowrap; }
+  #bloomberg-track { display: inline-block; animation: bloombergScroll 42s linear infinite; } #bloomberg-tape:hover #bloomberg-track { animation-play-state: paused; }
+</style>
+</head>
+<body>
+
+
+
+<header style="background:#002d72;color:#fff;padding:12px 18px;border-bottom:3px solid #d4af37;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+  <div><strong style="font-size:1.1rem;color:#fcd34d;">⚛️ INFINITYHUNT_CUANTUM_BANK</strong> <span style="font-size:0.78rem;background:#059669;padding:2px 8px;border-radius:999px;font-weight:800;">T+0 CLEARING</span></div>
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+    <select id="user-select" onchange="switchUser(this.value)" style="padding:6px 9px;border-radius:6px;font-weight:700;border:1.5px solid #d4af37;"></select>
+    <select id="bank-currency-select" onchange="setBankCurrency(this.value)" style="padding:6px 9px;border-radius:6px;font-weight:800;border:1.5px solid #d4af37;background:#0f172a;color:#fcd34d;">
+      <option value="EUR">🇪🇺 EUR (€)</option><option value="GBP">🇬🇧 GBP (£)</option><option value="USD">🇺🇸 USD ($)</option>
+    </select>
+    <button type="button" id="btn-lang-es" onclick="setBankLang('ES')" title="Español" style="background:#1e293b;border:1.5px solid #d4af37;border-radius:6px;padding:5px 9px;cursor:pointer;display:flex;align-items:center;gap:5px;color:#fff;font-weight:800;">
+      <svg width="20" height="14" viewBox="0 0 3 2"><rect width="3" height="2" fill="#aa151b"/><rect width="3" height="1" y="0.5" fill="#f1bf00"/></svg> ES
+    </button>
+    <button type="button" id="btn-lang-en" onclick="setBankLang('EN')" title="English" style="background:#1e293b;border:1.5px solid #d4af37;border-radius:6px;padding:5px 9px;cursor:pointer;display:flex;align-items:center;gap:5px;color:#fff;font-weight:800;">
+      <svg width="20" height="14" viewBox="0 0 60 30"><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#c8102e" stroke-width="6"/></svg> EN
+    </button>
+    <button type="button" id="btn-bank-refresh" onclick="syncBankLiveNow()" style="background:#059669;color:#fff;border:1.5px solid #d4af37;border-radius:6px;padding:6px 11px;font-weight:800;cursor:pointer;">🔄 Actualidad</button>
+    <button type="button" id="btn-bank-audio" onclick="toggleBankAudio()" style="background:#1e293b;color:#fcd34d;border:1.5px solid #d4af37;border-radius:6px;padding:6px 11px;font-weight:800;cursor:pointer;">🔊 Sonido ON</button>
+  </div>
+</header>
+<div id="bloomberg-tape"><span id="bloomberg-track">📡 BLOOMBERG GLOBAL LIVE FEED · Sincronizando cotizaciones mundiales en tiempo real...</span></div>
+
+
+<main style="max-width:1280px;margin:14px auto;padding:0 14px;">
+  <div id="user-banner" class="gold-card" style="border-left:5px solid #ff6200;padding:12px 16px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:0.88rem;"></div>
+
+  <section id="open-independent-account-card" class="gold-card" style="padding:14px 18px;margin-bottom:14px;">
+    <h3 id="title-open-indep" style="margin:0 0 10px 0;color:#002d72;font-size:1rem;">👤 Abrir Nueva Cuenta Independiente para Titular (Alta Mundial Universal)</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:8px;align-items:center;">
+      <select id="new-country" style="padding:8px;border:1.5px solid #cbd5e1;border-radius:8px;font-weight:700;"></select>
+      <input id="new-name" type="text" placeholder="Nombre y Apellidos" style="padding:8px;border:1.5px solid #cbd5e1;border-radius:8px;">
+      <input id="new-dni" type="text" placeholder="NIF / DNI / Tax ID" style="padding:8px;border:1.5px solid #cbd5e1;border-radius:8px;">
+      <input id="new-street" type="text" placeholder="Calle / Vía y Número" style="padding:8px;border:1.5px solid #cbd5e1;border-radius:8px;">
+      <input id="new-zip" type="text" placeholder="Código Postal (ej. 28001)" style="padding:8px;border:1.5px solid #cbd5e1;border-radius:8px;">
+      <input id="new-city" type="text" placeholder="Ciudad (ej. Madrid)" style="padding:8px;border:1.5px solid #cbd5e1;border-radius:8px;">
+      <input id="new-region" type="text" placeholder="Región / Comunidad / Estado" style="padding:8px;border:1.5px solid #cbd5e1;border-radius:8px;">
+      <select id="new-cur-pref" style="padding:8px;border:1.5px solid #cbd5e1;border-radius:8px;font-weight:700;"><option value="EUR">🇪🇺 Euros (€)</option><option value="GBP">🇬🇧 Libras (£)</option><option value="USD">🇺🇸 Dólares ($)</option></select>
+      <button type="button" id="btn-create-indep" onclick="createNewClient()" style="background:#059669;color:#fff;border:1.5px solid #d4af37;border-radius:8px;padding:9px 14px;font-weight:800;cursor:pointer;">✅ Dar de Alta y Asignar IBAN</button>
+    </div>
+  </section>
+
+
+  <section class="gold-card" style="padding:14px 18px;margin-bottom:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px;">
+    <div>
+      <h3 style="margin:0 0 8px 0;color:#002d72;font-size:0.98rem;">📋 Ficha Fiscal y Bancaria del Titular Activo</h3>
+      <div id="fiscal-card-detail" style="font-size:0.84rem;line-height:1.65;color:#1e293b;"></div>
+    </div>
+    <div>
+      <h3 style="margin:0 0 8px 0;color:#002d72;font-size:0.98rem;">✏️ Corregir Datos Fiscales e IBAN del Titular Activo</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:7px;">
+        <select id="edit-country" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;font-weight:700;"></select>
+        <input id="edit-name" type="text" placeholder="Nombre y Apellidos" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;">
+        <input id="edit-dni" type="text" placeholder="NIF / DNI / Tax ID" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;">
+        <input id="edit-iban" type="text" placeholder="IBAN / Cuenta Local" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;">
+        <input id="edit-street" type="text" placeholder="Calle y Número" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;">
+        <input id="edit-zip" type="text" placeholder="Código Postal" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;">
+        <input id="edit-city" type="text" placeholder="Ciudad" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;">
+        <input id="edit-region" type="text" placeholder="Región / Estado" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;">
+        <button type="button" onclick="saveEditedClient()" style="background:#002d72;color:#fcd34d;border:1.5px solid #d4af37;border-radius:6px;padding:7px 10px;font-weight:800;cursor:pointer;">💾 Guardar Corrección</button>
+        <button type="button" onclick="deleteCurrentClient()" style="background:#dc2626;color:#fff;border:1.5px solid #d4af37;border-radius:6px;padding:7px 10px;font-weight:800;cursor:pointer;">🗑️ Dar de Baja Titular</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="master-semantic-quantum-box" style="background:#0f172a;color:#f8fafc;border:2px solid #d4af37;border-radius:12px;padding:16px 20px;margin-bottom:14px;box-shadow:0 8px 24px rgba(0,0,0,0.25);">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:1px solid #334155;padding-bottom:8px;margin-bottom:10px;">
+      <strong style="color:#fcd34d;font-size:0.98rem;">⚛️ CAJA MAESTRA SEMÁNTICA CUÁNTICA · LEY ABSOLUTA DEL CAMPO DE DATOS (PEUO / HGCN)</strong>
+      <span style="background:#059669;color:#fff;padding:2px 10px;border-radius:999px;font-size:0.74rem;font-weight:800;">C_ijkl = 1.5 · β_ij = 0.02 · LATENCIA 0,004 ms</span>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+      <input id="sem-input" type="text" placeholder="Inyectar cualquier orden o texto en Malla Viva (ej: Crea cuenta..., Dar de baja a..., Mañana va a llover...)" style="padding:9px 12px;border:1.5px solid #d4af37;border-radius:8px;flex:1;min-width:250px;background:#1e293b;color:#fff;">
+      <input id="sem-amt" type="text" placeholder="Importe opcional" style="padding:9px;border:1.5px solid #d4af37;border-radius:8px;width:140px;background:#1e293b;color:#fcd34d;font-weight:800;">
+      <button type="button" onclick="runSemanticQuantum()" style="background:#ff6200;color:#fff;border:1.5px solid #fcd34d;border-radius:8px;padding:9px 16px;font-weight:800;cursor:pointer;">⚛️ Ejecutar en Malla Viva</button>
+    </div>
+    <div id="sem-result" style="font-weight:800;color:#34d399;margin-bottom:10px;font-size:0.86rem;"></div>
+    <div style="background:#1e293b;border-left:4px solid #38bdf8;border-radius:8px;padding:12px 16px;margin-bottom:10px;">
+      <div style="font-size:0.8rem;color:#7dd3fc;font-weight:800;margin-bottom:4px;">LEY ABSOLUTA DEL CAMPO DE DATOS · ECUACIÓN DEL TENSOR DE TENSIÓN DE HUNT:</div>
+      <div style="font-family:'Cambria Math',Georgia,serif;font-size:1.2rem;color:#ffffff;font-weight:800;">σ<sub>ij</sub> = C<sub>ijkl</sub> · ε<sub>kl</sub> − β<sub>ij</sub>(T − T<sub>0</sub>) + H<sub>ij</sub>(∇<sup>2</sup>ϕ)</div>
+    </div>
+    <details style="background:#1e293b;border:1px solid #334155;border-radius:8px;padding:10px 14px;font-size:0.79rem;line-height:1.5;color:#cbd5e1;">
+      <summary style="cursor:pointer;color:#fcd34d;font-weight:800;">📊 Desglose Científico Signo por Signo &amp; 🌐 Hunt Global Continuum Network (HGCN) — Propiedad Exclusiva de J. Richard Hunt</summary>
+      <div style="margin-top:8px;">• <strong>σ<sub>ij</sub> (Tensor de Tensión de Datos Global):</strong> Registra la densidad de interacciones simultáneas alfanuméricas y textos en un instante dado.<br>• <strong>= (Igualdad Ondulatoria):</strong> Equilibrio dinámico inmediato sin procesos batch.<br>• <strong>C<sub>ijkl</sub> = 1.5 (Tensor de Elasticidad Cuántica) · ε<sub>kl</sub> (Deformación):</strong> Regulador algorítmico de máxima precisión acoplado al flujo de entrada.<br>• <strong>− β<sub>ij</sub>(T − T<sub>0</sub>) (β<sub>ij</sub> = 0.02):</strong> Contrapeso termodinámico con 0% pérdida de rendimiento y amortiguación regulatoria.<br>• <strong>+ H<sub>ij</sub>(∇<sup>2</sup>ϕ) (Corrección de Hunt y Laplaciano de Onda Continua):</strong> Traduce texto libre a códigos indexables en el mismo milisegundo.<br>• <strong>🌐 Hunt Global Continuum Network (HGCN):</strong> Malla Viva continua e infinita creada exclusivamente por <strong>J. Richard Hunt</strong> (Doctor en Matemáticas de Computación Cuántica · Protegido por Ley de Propiedad Intelectual; prohibida su copia o plagio).</div>
+    </details>
+  </section>
+  <nav style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">
+    <button type="button" id="tab-lbl-1" class="tab-btn active" onclick="showTab('tab-operativa',this)" style="background:#002d72;color:#fff;padding:8px 13px;border-radius:8px;font-weight:800;cursor:pointer;">💳 1. Operativa &amp; Movimientos</button>
+    <button type="button" id="tab-lbl-2" class="tab-btn" onclick="showTab('tab-semantica',this)" style="background:#e2e8f0;color:#0f172a;padding:8px 13px;border-radius:8px;font-weight:800;cursor:pointer;">⚛️ 2. Historial Semántico T+0</button>
+    <button type="button" id="tab-lbl-3" class="tab-btn" onclick="showTab('tab-tarjetas',this)" style="background:#e2e8f0;color:#0f172a;padding:8px 13px;border-radius:8px;font-weight:800;cursor:pointer;">🪪 3. Tarjeta Quantum, Huchas &amp; Remesas</button>
+    <button type="button" id="tab-lbl-4" class="tab-btn" onclick="showTab('tab-fiscal',this)" style="background:#e2e8f0;color:#0f172a;padding:8px 13px;border-radius:8px;font-weight:800;cursor:pointer;">🏛️ 4. Fiscalidad Mundial &amp; Certificados</button>
+    <button type="button" id="tab-lbl-5" class="tab-btn" onclick="showTab('tab-pgc',this)" style="background:#e2e8f0;color:#0f172a;padding:8px 13px;border-radius:8px;font-weight:800;cursor:pointer;">📒 5. Libro Mayor PGC &amp; Caja Negra</button>
+    <button type="button" id="tab-lbl-6" class="tab-btn" onclick="showTab('tab-inversiones',this)" style="background:#e2e8f0;color:#0f172a;padding:8px 13px;border-radius:8px;font-weight:800;cursor:pointer;">📈 6. Inversiones &amp; Simulador</button>
+  </nav>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-bottom:14px;">
+    <div class="gold-card" style="border-top:4px solid #059669;padding:12px 16px;"><div id="kpi-op-lbl" style="font-size:0.78rem;color:#475569;font-weight:800;">CUENTA OPERATIVA DISPONIBLE</div><div id="box-op" style="font-size:1.45rem;font-weight:900;color:#059669;">0,00 €</div></div>
+    <div class="gold-card" style="border-top:4px solid #002d72;padding:12px 16px;"><div id="kpi-sav-lbl" style="font-size:0.78rem;color:#475569;font-weight:800;">CUENTA AHORRO INFINITYHUNT (4,5% TAE)</div><div id="box-sav" style="font-size:1.45rem;font-weight:900;color:#002d72;">0,00 €</div></div>
+    <div class="gold-card" style="border-top:4px solid #ff6200;padding:12px 16px;"><div id="kpi-tax-lbl" style="font-size:0.78rem;color:#475569;font-weight:800;">RESERVA FISCAL RETENIDA</div><div id="box-aeat" style="font-size:1.45rem;font-weight:900;color:#ff6200;">0,00 €</div><small id="box-aeat-nif" style="color:#64748b;font-weight:700;"></small></div>
+  </div>
+  <div id="wealth-bar-chart" class="gold-card" style="padding:12px 16px;margin-bottom:14px;"></div>
+
+
+  <div id="tab-operativa" class="bank-tab gold-card" style="display:block;padding:14px 16px;">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+      <input id="mov-date" type="date" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;"><input id="mov-concept" type="text" placeholder="Concepto ingreso/gasto" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;flex:1;min-width:160px;"><input id="mov-amount" type="text" placeholder="Importe (ej. 2500 o 5M)" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;width:140px;">
+      <button type="button" onclick="addMovement(false)" style="background:#059669;color:#fff;border:none;border-radius:6px;padding:7px 12px;font-weight:800;cursor:pointer;">➕ Ingreso</button><button type="button" onclick="addMovement(true)" style="background:#dc2626;color:#fff;border:none;border-radius:6px;padding:7px 12px;font-weight:800;cursor:pointer;">➖ Gasto</button><button type="button" onclick="transferToSavings(0.25)" style="background:#002d72;color:#fff;border:none;border-radius:6px;padding:7px 12px;font-weight:800;cursor:pointer;">💰 Ahorro 25%</button><button type="button" onclick="toggleFreeze()" style="background:#475569;color:#fff;border:none;border-radius:6px;padding:7px 12px;font-weight:800;cursor:pointer;">🔒 Bloquear/Activar</button><button type="button" onclick="exportUserCsv()" style="background:#d4af37;color:#0f172a;border:none;border-radius:6px;padding:7px 12px;font-weight:800;cursor:pointer;">📥 CSV</button>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;"><select id="tr-target" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;"></select><input id="tr-amt" type="text" placeholder="Importe transferencia interna" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;"><button type="button" onclick="transferToClient()" style="background:#ff6200;color:#fff;border:none;border-radius:6px;padding:7px 14px;font-weight:800;cursor:pointer;">💸 Transferir a Titular</button></div>
+    <table style="width:100%;border-collapse:collapse;font-size:0.83rem;"><thead><tr style="background:#f1f5f9;text-align:left;"><th>Fecha</th><th>Concepto</th><th>Tipo</th><th>Importe</th><th>Saldo</th></tr></thead><tbody id="mov-tbody"></tbody></table>
+  </div>
+  <div id="tab-semantica" class="bank-tab gold-card" style="display:none;padding:14px 16px;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.83rem;"><thead><tr style="background:#f1f5f9;text-align:left;"><th>Fecha</th><th>QID</th><th>Orden Ejecutada en Malla Viva</th><th>Coherencia</th></tr></thead><tbody id="sem-tbody"></tbody></table>
+  </div>
+
+  <div id="tab-tarjetas" class="bank-tab gold-card" style="display:none;padding:14px 16px;">
+    <div id="virtual-card-box" style="max-width:360px;background:linear-gradient(135deg,#002d72,#0f172a);color:#fff;border:2px solid #d4af37;border-radius:14px;padding:14px 18px;margin-bottom:10px;"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;"><input id="card-shop" type="text" placeholder="Comercio" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;"><input id="card-amt" type="text" placeholder="Importe" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;width:110px;"><button type="button" onclick="payWithCard()" style="background:#ff6200;color:#fff;border:none;border-radius:6px;padding:7px 12px;font-weight:800;cursor:pointer;">💳 Pagar</button><input id="card-limit-inp" type="text" placeholder="Límite" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;width:110px;"><button type="button" onclick="updateCardLimit()" style="background:#002d72;color:#fff;border:none;border-radius:6px;padding:7px 10px;font-weight:800;cursor:pointer;">Límite</button><button type="button" onclick="regenerateVirtualCard()" style="background:#475569;color:#fff;border:none;border-radius:6px;padding:7px 10px;font-weight:800;cursor:pointer;">🔄 Renovar PAN</button></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;"><input id="vault-name" type="text" placeholder="Nombre Hucha" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;"><input id="vault-amt" type="text" placeholder="Importe" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;width:110px;"><button type="button" onclick="createVault()" style="background:#059669;color:#fff;border:none;border-radius:6px;padding:7px 12px;font-weight:800;cursor:pointer;">🐷 Crear Hucha</button></div>
+    <div id="vault-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-bottom:12px;"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;"><input id="rem-concept" type="text" placeholder="Remesa periódica" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;"><input id="rem-amt" type="text" placeholder="Importe" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;width:110px;"><select id="rem-freq" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;"><option>Mensual</option><option>Trimestral</option></select><button type="button" onclick="addScheduledOrder()" style="background:#002d72;color:#fff;border:none;border-radius:6px;padding:7px 10px;font-weight:800;cursor:pointer;">➕ Programar</button><button type="button" onclick="runAllScheduledOrders()" style="background:#ff6200;color:#fff;border:none;border-radius:6px;padding:7px 10px;font-weight:800;cursor:pointer;">⚡ Ejecutar Remesas</button></div>
+    <div id="rem-list"></div>
+  </div>
+  <div id="tab-fiscal" class="bank-tab gold-card" style="display:none;padding:14px 16px;">
+    <div id="tax-consolidated-summary" style="background:#f8fafc;padding:10px;border-radius:8px;margin-bottom:10px;font-size:0.84rem;"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;"><button type="button" onclick="settleAeat()" style="background:#dc2626;color:#fff;border:none;border-radius:6px;padding:8px 12px;font-weight:800;cursor:pointer;">🏛️ Liquidar Reserva Fiscal</button><button type="button" onclick="downloadTaxReport()" style="background:#002d72;color:#fff;border:none;border-radius:6px;padding:8px 12px;font-weight:800;cursor:pointer;">📄 Informe Fiscal</button><button type="button" onclick="downloadOfficialCertificate()" style="background:#d4af37;color:#0f172a;border:none;border-radius:6px;padding:8px 12px;font-weight:800;cursor:pointer;">🏅 Certificado Oficial</button></div>
+  </div>
+
+
+  <div id="tab-pgc" class="bank-tab gold-card" style="display:none;padding:14px 16px;">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;"><button type="button" onclick="exportBlackBox()" style="background:#002d72;color:#fcd34d;border:none;border-radius:6px;padding:7px 12px;font-weight:800;cursor:pointer;">🔐 Exportar Caja Negra</button><button type="button" onclick="exportFullBackup()" style="background:#059669;color:#fff;border:none;border-radius:6px;padding:7px 12px;font-weight:800;cursor:pointer;">💾 Backup Total JSON</button><input type="file" accept=".json" onchange="importFullBackup(this)"></div>
+    <table style="width:100%;border-collapse:collapse;font-size:0.82rem;margin-bottom:12px;"><thead><tr style="background:#f1f5f9;text-align:left;"><th>Fecha</th><th>Cuenta PGC</th><th>Concepto</th><th>Debe</th><th>Haber</th></tr></thead><tbody id="pgc-tbody"></tbody></table>
+    <table style="width:100%;border-collapse:collapse;font-size:0.82rem;"><thead><tr style="background:#0f172a;color:#fcd34d;text-align:left;"><th>Fecha/Hora</th><th>Hash</th><th>Titular</th><th>Evento</th><th>Importe</th></tr></thead><tbody id="blackbox-tbody"></tbody></table>
+  </div>
+  <div id="tab-inversiones" class="bank-tab gold-card" style="display:none;padding:14px 16px;">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;"><select id="sim-asset" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;"><option value="NVIDIA (NVDA)|0.18">NVIDIA (NVDA · 18%)</option><option value="TESLA (TSLA)|0.16">TESLA (TSLA · 16%)</option><option value="BTCEUR 24/7|0.22">BTCEUR 24/7 (22%)</option><option value="IBEX 35|0.11">IBEX 35 (11%)</option></select><input id="sim-capital" type="text" placeholder="Capital (ej. 50000 o 5M)" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;"><input id="sim-years" type="number" value="5" style="padding:7px;border:1.5px solid #cbd5e1;border-radius:6px;width:70px;"><button type="button" onclick="simulatePortfolio()" style="background:#002d72;color:#fff;border:none;border-radius:6px;padding:7px 12px;font-weight:800;cursor:pointer;">📊 Simular</button><button type="button" onclick="executePortfolioOrder()" style="background:#059669;color:#fff;border:none;border-radius:6px;padding:7px 12px;font-weight:800;cursor:pointer;">🚀 Ejecutar en Capital</button></div>
+    <div id="sim-result" style="font-weight:800;color:#059669;"></div>
+  </div>
+
+</main>
+<footer id="bank-world-clocks-footer" style="margin-top:22px;background:#002d72;color:#fff;border-top:3px solid #d4af37;padding:12px 18px;font-size:0.8rem;font-weight:700;text-align:center;">🌐 RELOJES MUNDIALES · MERCADOS DE FONDOS DE INVERSIÓN: Sincronizando plazas globales...</footer>
+<script src="quantum_bank_00.js?v=2026_FINAL_OK"></script>
+</body>
+</html>
