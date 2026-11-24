@@ -64,6 +64,4 @@ INFINITYHUNT_CUANTUM_BANK/
 ├── ⚙️ quantum_bank_00.js  # Core banking engine, 195-country FX rules, PGC ledger & T+0 bridge
 └── 📘 README.md           # Project overview & technical documentation
 
-Usa el código con precaución.
 
-Copiar texto del código en el portapapeles.
